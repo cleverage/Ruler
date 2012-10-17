@@ -16,14 +16,14 @@ You want to check if the current user can activate a feature. For this, you have
 // PHP 5.3
 $rule = new IsConnectedRule($user);
 $rule->andRule(new IsSuscriberRule($user, 'PREMIUM'))
-     ->andRule(new hasMoneyRule($user, 300)
-     ->orRule(newIsAdminRule($user));
+     ->andRule(new HasMoneyRule($user, 300)
+     ->orRule(new IsAdminRule($user));
 
 // PHP 5.4
 $rule = new IsConnectedRule($user)
-              ->andRule(new IsSuscriberRule($user, 'PREMIUM'))
-              ->andRule(new hasMoneyRule($user, 300)
-              ->orRule(newIsAdminRule($user));
+  ->andRule(new IsSuscriberRule($user, 'PREMIUM'))
+  ->andRule(new HasMoneyRule($user, 300)
+  ->orRule(new IsAdminRule($user));
 
 try {
     if ($rule->isSatisfied()) {
@@ -51,17 +51,40 @@ class IsConnectedRule extends \CleverAge\Ruler\AbstractRule
 
     public function __construct(\User $user)
     {
-      $this->_user = $user;
+        $this->_user = $user;
     }
 
     public function doIsSatisfied()
     {
-      return $this->_user->isLoggedOn();
+        return $this->_user->isLoggedOn();
     }
 }
 ```
 
-# How logic is handled
+Combination of rules can even be done in a single rule class, in order to simplify your application code and increase maintability.
+
+```php
+// ActiveFeatureXRule class
+class ActiveFeatureXRule extends \CleverAge\Ruler\AbstractRule
+{
+    public function __construct(\User $user)
+    {
+        $this->andRule(new IsSuscriberRule($user, 'PREMIUM'))
+             ->andRule(new HasMoneyRule($user, 300)
+             ->orRule(new IsAdminRule($user));
+    }
+
+    public function doIsSatisfied()
+    {
+        // method is abstract, and this container rule always satisfies.
+        return true;
+    }
+}
+```
+
+Now, you can use this rule class everywhere you need it, and just change the construct to have th rules reverberated everewhere.
+
+## How logic is handled
 
 The order in which you set OR/AND/NAND rules is not important. At the end, they are grouped by type.
 
@@ -70,10 +93,10 @@ The order in which you set OR/AND/NAND rules is not important. At the end, they 
 ```php
 // A,B,C,D,G,Z are rules
 $A->andRule($B)
- ->orRule($C->andRule($Z))
- ->andRule($D)
- ->nandRule($G)
- ->isSatisfied();
+  ->orRule($C->andRule($Z))
+  ->andRule($D)
+  ->nandRule($G)
+  ->isSatisfied();
 
 // PHP =>($A && $B && $D && !$G) || ($C && $Z)
 // Binary => (A.B.D.!G)+(C.Z)
@@ -84,12 +107,13 @@ $A->andRule($B)
 ```php
 // A,B,C,D,G,Z are rules
 $A->andRule($B)
- ->orRule($C->andRule($Z))
- ->andRule($D)
- ->nandRule($G)
- ->isNotSatisfied()
+  ->orRule($C->andRule($Z))
+  ->andRule($D)
+  ->nandRule($G)
+  ->isNotSatisfied()
 
 // PHP => (!$A || !$B || !$D || $G) && (!$C || !$Z)
 // Binary => (!A+!B+!D+G).(!C+!Z)
 ```
 
+by default, isNotSatisfied() returns !isSatisfied(). But sometimes, you may want to personnalize the doIsNotSatisfied() method in order to optimize workflow (like SQL queries).
