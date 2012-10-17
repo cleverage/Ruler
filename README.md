@@ -63,7 +63,7 @@ class IsConnectedRule extends \CleverAge\Ruler\AbstractRule
 
 # How logic is handled
 
-The order in which you set OR/AND/NAND rules is not important. At the and, they are grouped by type, and 
+The order in which you set OR/AND/NAND rules is not important. At the end, they are grouped by type.
 
 1) You want your ruleset satisfied :
 
