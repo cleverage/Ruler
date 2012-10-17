@@ -1,0 +1,21 @@
+{
+    "name": "cleverage/ruler",
+    "description": "A business rules engine",
+    "keywords": ["rules"],
+    "homepage": "https://github.com/cleverage/Ruler",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": { "CleverAge\\Ruler": "src/" }
+    },
+    "authors": [
+        {
+            "name": "Florian Vilpoix"
+        },
+        {
+            "name": "Florian Lonqueu-Brochard"
+        }
+    ]
+}
