@@ -42,10 +42,10 @@ try {
 
 ```php
 <?php // IsConnectedRule class
-class IsConnectedRule extends \CleverAge\Ruler\AbstractRule
+class IsConnectedRule extends \CleverAge\Ruler\RuleAbstract
 {
     protected $_user;
-  
+
     protected $_failure_exception_class = 'NotConnectedException';
     protected $_failure_message = 'user is not connected';
 
@@ -65,7 +65,7 @@ Combination of rules can even be done in a single rule class, in order to simpli
 
 ```php
 // ActiveFeatureXRule class
-class ActiveFeatureXRule extends \CleverAge\Ruler\AbstractRule
+class ActiveFeatureXRule extends \CleverAge\Ruler\RuleAbstract
 {
     public function __construct(\User $user)
     {
