@@ -66,14 +66,21 @@ class RulerTest extends \PHPUnit_Framework_TestCase
             ->andRule(new Example\FalsyRule());
         $this->assertTrue($rule4->isSatisfied());
 
+        // 1 . !0 + 0
+        $rule5 = new Example\TruelyRule();
+        $rule5
+            ->orRule(new Example\FalsyRule())
+            ->nandRule(new Example\FalsyRule());
+        $this->assertTrue($rule5->isSatisfied());
+
         $this->setExpectedException('CleverAge\Ruler\Test\Exception\CustomException');
 
         // 1 . 1 . 0
-        $rule5 = new Example\TruelyRule();
-        $rule5
+        $rule6 = new Example\TruelyRule();
+        $rule6
             ->andRule(new Example\TruelyRule())
             ->andRule(new Example\FalsyRule());
-        $rule5->isSatisfied();
+        $rule6->isSatisfied();
     }
 
     /**
@@ -102,6 +109,23 @@ class RulerTest extends \PHPUnit_Framework_TestCase
         $rule
             ->andRule(new Example\FalsyRule())
             ->orRule(new Example\FalsyRule())
+            ->orRule($subrule);
+
+        $rule->isSatisfied();
+    }
+
+    /**
+     * @expectedException        CleverAge\Ruler\Test\Exception\CustomException
+     */
+    public function testCombinationFail3()
+    {
+        // 0 . 1 + 1 . !1
+        $subrule = new Example\TruelyRule();
+        $subrule->nandRule(new Example\TruelyRule());
+
+        $rule = new Example\FalsyRule();
+        $rule
+            ->andRule(new Example\TruelyRule())
             ->orRule($subrule);
 
         $rule->isSatisfied();
