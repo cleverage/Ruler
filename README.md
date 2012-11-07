@@ -20,7 +20,7 @@ $rule->andRule(new IsSuscriberRule($user, 'PREMIUM'))
      ->orRule(new IsAdminRule($user));
 
 // PHP 5.4
-$rule = new IsConnectedRule($user)
+$rule = (new IsConnectedRule($user))
   ->andRule(new IsSuscriberRule($user, 'PREMIUM'))
   ->andRule(new HasMoneyRule($user, 300)
   ->orRule(new IsAdminRule($user));
