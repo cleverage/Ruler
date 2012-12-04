@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cleverage/Ruler.png)](https://travis-ci.org/cleverage/Ruler)
+
 Ruler
 =====
 
