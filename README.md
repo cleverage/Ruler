@@ -72,7 +72,7 @@ class ActiveFeatureXRule extends \CleverAge\Ruler\RuleAbstract
     public function __construct(\User $user)
     {
         $this->andRule(new IsSuscriberRule($user, 'PREMIUM'))
-             ->andRule(new HasMoneyRule($user, 300)
+             ->andRule(new HasMoneyRule($user, 300))
              ->orRule(new IsAdminRule($user));
     }
 
