@@ -119,3 +119,20 @@ $A->andRule($B)
 ```
 
 by default, isNotSatisfied() returns !isSatisfied(). But sometimes, you may want to personnalize the doIsNotSatisfied() method in order to optimize workflow (like SQL queries).
+
+## Customization
+
+### Setting Exception class and message error
+
+If you have one generic rule (e.g. : ObjectIsEqual), you may need to have different exception thrown when composing complex rules.
+Each Rule has a setter for this :
+
+```php
+$A = new MyRule();
+$A->setException('My\Name\Space\Ruler\Exceptions\MyException', 'my custom error message');
+
+$A->isSatisfied();
+
+// If rule is not satisfied
+// it throws a new My\Name\Space\Ruler\Exceptions\MyException('my custom error message') exception
+```
