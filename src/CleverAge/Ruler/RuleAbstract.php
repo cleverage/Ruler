@@ -16,6 +16,7 @@ abstract class RuleAbstract implements RuleInterface
 {
     /**
      * @var string Full qualified class name for the exception to throw when the rule must be satisfied but is not.
+     * Must inherit from CleverAge\Ruler\Exception\Exception
      */
     protected $_failure_exception_class = 'CleverAge\Ruler\Exception\NotSatisfiedException';
 
@@ -215,5 +216,39 @@ abstract class RuleAbstract implements RuleInterface
     {
         $class = $this->_not_failure_exception_class;
         throw new $class($this->_not_failure_message);
+    }
+
+    /**
+     * Override the default class used to generate error.
+     * Use this if you want to use the same Rule but to generate differents
+     * errors.
+     *
+     * @param string $exceptionClass The Full qualified name of the classe. Must inherit from CleverAge\Ruler\Exception\Exception
+     * @param string $msg            The message returned by the exception
+     *
+     * @return \CleverAge\Ruler\RuleInterface
+     */
+    public function setException($exceptionClass, $msg = null)
+    {
+        $this->_failure_exception_class = $exceptionClass;
+        $this->_failure_message = $msg;
+
+        return $this;
+    }
+
+    /**
+     * @see self::setException()
+     *
+     * @param string $exceptionClass
+     * @param string $msg
+     *
+     * @return \CleverAge\Ruler\RuleInterface
+     */
+    public function setNotException($exceptionClass, $msg = null)
+    {
+        $this->_not_failure_exception_class = $exceptionClass;
+        $this->_not_failure_message = $msg;
+
+        return $this;
     }
 }

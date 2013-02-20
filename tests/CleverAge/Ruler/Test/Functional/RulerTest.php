@@ -131,5 +131,13 @@ class RulerTest extends \PHPUnit_Framework_TestCase
         $rule->isSatisfied();
     }
 
-
+    /**
+     * @expectedException CleverAge\Ruler\Test\Exception\Custom2Exception
+     */
+    public function testOverrideException()
+    {
+        $rule = new Example\FalsyRule();
+        $rule->setException('CleverAge\Ruler\Test\Exception\Custom2Exception');
+        $rule->isSatisfied();
+    }
 }
