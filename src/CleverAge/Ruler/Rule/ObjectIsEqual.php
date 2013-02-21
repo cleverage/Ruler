@@ -42,7 +42,7 @@ class ObjectIsEqual extends RuleAbstract
         $class = is_object($this->object1) ? get_class($this->object1) : false;
 
         return $class
-            && (($this->object1 == $this->object2)
+            && (($this->object1 === $this->object2)
             || (($this->object2 instanceof $class)
                 && ($this->object1->{$this->identifierMethod}()
                     == $this->object2->{$this->identifierMethod}())
