@@ -57,11 +57,6 @@ abstract class RuleAbstract implements RuleInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function doIsSatisfied();
-
-    /**
-     * {@inheritdoc}
-     */
     public function doIsNotSatisfied()
     {
         return !$this->doIsSatisfied();
