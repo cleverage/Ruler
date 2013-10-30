@@ -55,9 +55,18 @@ abstract class RuleAbstract implements RuleInterface
     protected $_nand_children = array();
 
     /**
-     * {@inheritdoc}
+     * Executes the current rule and check that it's satisfied
+     *
+     * @return boolean true when satisfied, false otherwise
      */
-    public function doIsNotSatisfied()
+    abstract protected function doIsSatisfied();
+
+    /**
+     * Executes the current rule and check that it's not satisfied
+     *
+     * @return boolean true when not satisfied, false otherwise
+     */
+    protected function doIsNotSatisfied()
     {
         return !$this->doIsSatisfied();
     }

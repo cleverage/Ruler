@@ -13,20 +13,6 @@ namespace CleverAge\Ruler;
 interface RuleInterface
 {
     /**
-     * Executes the current rule and check that it's satisfied
-     *
-     * @return boolean true when satisfied, false otherwise
-     */
-    public function doIsSatisfied();
-
-    /**
-     * Executes the current rule and check that it's not satisfied
-     *
-     * @return boolean true when not satisfied, false otherwise
-     */
-    public function doIsNotSatisfied();
-
-    /**
      * Executes the current rule, and its and|or associated rules.
      *
      * A->and(B)
