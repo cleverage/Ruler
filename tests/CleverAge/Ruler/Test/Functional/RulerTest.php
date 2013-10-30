@@ -2,7 +2,7 @@
 
 namespace CleverAge\Ruler\Test\Functional;
 
-use CleverAge\Ruler\Test\Rule as Example;
+use CleverAge\Ruler\Test\Fixtures\Rule as Example;
 
 class RulerTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +13,7 @@ class RulerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($rule->isSatisfied());
 
         $this->setExpectedException(
-          'CleverAge\Ruler\Test\Exception\CustomException',
+          'CleverAge\Ruler\Test\Fixtures\Exception\CustomException',
           'Hello Pony !'
         );
 
@@ -27,7 +27,7 @@ class RulerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($rule->isNotSatisfied());
 
         $this->setExpectedException(
-          'CleverAge\Ruler\Test\Exception\Custom2Exception',
+          'CleverAge\Ruler\Test\Fixtures\Exception\Custom2Exception',
           'Bye Pony !'
         );
 
@@ -73,7 +73,7 @@ class RulerTest extends \PHPUnit_Framework_TestCase
             ->nandRule(new Example\FalsyRule());
         $this->assertTrue($rule5->isSatisfied());
 
-        $this->setExpectedException('CleverAge\Ruler\Test\Exception\CustomException');
+        $this->setExpectedException('CleverAge\Ruler\Test\Fixtures\Exception\CustomException');
 
         // 1 . 1 . 0
         $rule6 = new Example\TruelyRule();
@@ -84,7 +84,7 @@ class RulerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        CleverAge\Ruler\Test\Exception\CustomException
+     * @expectedException        CleverAge\Ruler\Test\Fixtures\Exception\CustomException
      */
     public function testCombinationFail1()
     {
@@ -97,7 +97,7 @@ class RulerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        CleverAge\Ruler\Test\Exception\CustomException
+     * @expectedException        CleverAge\Ruler\Test\Fixtures\Exception\CustomException
      */
     public function testCombinationFail2()
     {
@@ -115,7 +115,7 @@ class RulerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        CleverAge\Ruler\Test\Exception\CustomException
+     * @expectedException        CleverAge\Ruler\Test\Fixtures\Exception\CustomException
      */
     public function testCombinationFail3()
     {
@@ -132,12 +132,12 @@ class RulerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException CleverAge\Ruler\Test\Exception\Custom2Exception
+     * @expectedException CleverAge\Ruler\Test\Fixtures\Exception\Custom2Exception
      */
     public function testOverrideException()
     {
         $rule = new Example\FalsyRule();
-        $rule->setException('CleverAge\Ruler\Test\Exception\Custom2Exception');
+        $rule->setException('CleverAge\Ruler\Test\Fixtures\Exception\Custom2Exception');
         $rule->isSatisfied();
     }
 }
